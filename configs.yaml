@@ -1,3 +1,4 @@
 logging:
   file: files/logs.log
   console: 0
+  level: INFO

@@ -20,6 +20,10 @@ class Logger(Configs):
     def file(cls) -> str:
         return cls.configs['logging']['file']
 
+    @classmethod
+    def level(cls) -> str:
+        return cls.configs['logging']['level']
+
 
 def start():
     Configs.init_configs()
