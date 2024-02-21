@@ -1,0 +1,59 @@
+'''
+        Добавь базу данных нашу где она указана
+        дока по бдшка в пиве: https://docs.peewee-orm.com/en/latest/peewee/database.html
+        
+        ->как в пиве подключается бдшка<-
+
+        #пример 1
+        from playhouse.postgres_ext import PostgresqlExtDatabase
+        psql_db = PostgresqlExtDatabase('my_database', user='postgres')
+        
+        #пример 2
+        from psycopg2.extensions import ISOLATION_LEVEL_SERIALIZABLE
+        db = PostgresqlDatabase('my_app', user='postgres', host='db-host',
+                        isolation_level=ISOLATION_LEVEL_SERIALIZABLE)
+
+        --> указние бдшки в моделях <--
+
+        class BaseModel(Model):
+        """A base model that will use our Sqlite database."""
+            class Meta:
+                database = sqlite_db #тут подключается 
+'''
+
+import re
+
+from peewee import *
+
+class User(Model):
+    user_login          =   CharField(max_length=64,  unique=True, verbose_name='Имя пользователя')
+    user_password       =   CharField(max_length=128, unique=True, verbose_name='Пароль пользователя')  #надо написать хэш функцию
+    user_Last_name      =   CharField(max_length=32, help_text='Фамилия', verbose_name='Фамилия')
+    user_first_name     =   CharField(max_length=32, help_text='Имя', verbose_name='Имя')
+    user_patronymic     =   CharField(max_length=32, help_text='Отчество', verbose_name='Отчество')
+    user_group_number   =   CharField(null=True, help_text='Номер вашей учебной группы', verbose_name='Номер группы')                    #под это надо написать валидатор
+    user_phone          =   CharField(unique=True, help_text='Номер вашего телефона', verbose_name='Телефон')                  #под это надо написать валидатор
+    user_vk             =   CharField(null=True, unique=True, help_text='Ваш профиль вконтакте', verbose_name='VK')
+    user_telegram       =   CharField(null=True, unique=True, help_text='Ваш профиль телеграм', verbose_name='Telegram') 
+    user_email          =   CharField(null=True, unique=True, help_text='Ваша почта', verbose_name='Email')                  #под это надо написать валидатор
+    
+    # class Meta:
+        # database = DATA_BASE_FROM_SETTINGS_CONFIGS
+
+    def validate_user_group_number(value):
+        pattern = r'^\d{4}-\d{6}[A-Z]$'
+        if not re.match(pattern, value):
+            raise ValueError('Неверный формат номера группы')
+        
+    def validate_user_phone(self, num):
+        clear_phone = re.sub(r'\D', '', num)
+        result = re.match(r'^[78]?\d{10}$', clear_phone)
+        pass
+
+    def validate_user_email(self):
+        # Напишите свою логику валидации почты здесь
+        pass
+
+    def hash_password(self, password):
+        # Напишите свою логику хэширования пароля здесь
+        pass
