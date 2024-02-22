@@ -11,11 +11,11 @@ def exemption():
 
     #добавление института в строку ворд
     institute = doc.paragraphs[1]
-    run = institute.add_run(input("Введите институт: "))
+    institute.add_run(input("Введите институт: "))
 
     #Ввод И. О. Фамилии
     IOF = doc.paragraphs[2]
-    run = IOF.add_run(input("Введите И. О. Фамилию: "))
+    IOF.add_run(input("Введите И.О.Фамилию: "))
 
     #Ввод названия мероприятия
     event_name = input("Название мероприятия: ")
