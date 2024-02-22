@@ -33,6 +33,6 @@ def gratitude():
     organization_print.add_run(organization + ".")
 
 
-    doc.save("ReadyThanks\\Благотворительное письмо "+ organization +".docx") #необходимо создать папку "ReadyThanks" в корне проекта
+    doc.save(f"ReadyThanks\\Благотворительное письмо {organization}.docx") #необходимо создать папку "ReadyThanks" в корне проекта
 
 gratitude()

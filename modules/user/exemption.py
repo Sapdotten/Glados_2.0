@@ -43,6 +43,6 @@ def exemption():
 
 
     #Сохранение документа
-    doc.save("ReadyExemption\\Освобождение " + event_name + " " + date_event + ".docx") #необходимо создать папку "ReadyExemption" в корне проекта
+    doc.save(f"ReadyExemption\\Освобождение {event_name} {date_event}.docx") #необходимо создать папку "ReadyExemption" в корне проекта
 
 exemption()
