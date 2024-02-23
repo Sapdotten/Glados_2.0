@@ -2,3 +2,9 @@ logging:
   file: files/logs.log
   console: 0
   level: INFO
+database:
+  user: qglpmgcg
+  base_name: qglpmgcg
+  password: bsKsGrHGGRpqr4fjKbBBVXoRDj-_J6ks
+  host: satao.db.elephantsql.com
+  port: 5432
