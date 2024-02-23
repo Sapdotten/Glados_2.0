@@ -2,7 +2,7 @@ import yaml
 from typing import Union
 
 
-class Configs:
+class _Configs:
     configs: dict
 
     @classmethod
@@ -11,7 +11,7 @@ class Configs:
             cls.configs = yaml.load(f, Loader=yaml.FullLoader)
 
 
-class Logger(Configs):
+class Logger(_Configs):
     config_name = 'logging'
 
     @classmethod
@@ -27,7 +27,7 @@ class Logger(Configs):
         return cls.configs[cls.config_name]['level']
 
 
-class Database(Configs):
+class Database(_Configs):
     config_name = 'database'
 
     @classmethod
@@ -51,8 +51,20 @@ class Database(Configs):
         return cls.configs[cls.config_name]['port']
 
 
+class Documents(_Configs):
+    config_name = 'documents'
+
+    @classmethod
+    def sample_exemption(cls):
+        return cls.configs[cls.config_name]['sample_exemption_dir']
+
+    @classmethod
+    def sample_thanks(cls):
+        return cls.configs[cls.config_name]['sample_thanks_dir']
+
+
 def start():
-    Configs.init_configs()
+    _Configs.init_configs()
 
 
 start()

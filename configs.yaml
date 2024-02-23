@@ -8,3 +8,6 @@ database:
   password: bsKsGrHGGRpqr4fjKbBBVXoRDj-_J6ks
   host: satao.db.elephantsql.com
   port: 5432
+documents:
+  sample_exemption_dir: SampleExemption.docx
+  sample_thanks_dir: SampleThanks.docx
