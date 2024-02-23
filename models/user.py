@@ -24,7 +24,8 @@
 import re
 
 from peewee import *
-
+pg_db = PostgresqlDatabase('qglpmgcg', user='qglpmgcg', password='bsKsGrHGGRpqr4fjKbBBVXoRDj-_J6ks',
+                           host='satao.db.elephantsql.com', port=5432)
 class User(Model):
     user_login          =   CharField(max_length=64,  unique=True, verbose_name='Имя пользователя')
     user_password       =   CharField(max_length=128, unique=True, verbose_name='Пароль пользователя')  #надо написать хэш функцию
@@ -34,17 +35,17 @@ class User(Model):
     user_group_number   =   CharField(null=True, help_text='Номер вашей учебной группы', verbose_name='Номер группы')                    #под это надо написать валидатор
     user_phone          =   CharField(unique=True, help_text='Номер вашего телефона', verbose_name='Телефон')                  #под это надо написать валидатор
     user_vk             =   CharField(null=True, unique=True, help_text='Ваш профиль вконтакте', verbose_name='VK')
-    user_telegram       =   CharField(null=True, unique=True, help_text='Ваш профиль телеграм', verbose_name='Telegram') 
+    user_telegram       =   CharField(null=True, unique=True, help_text='Ваш профиль телеграм', verbose_name='Telegram')
     user_email          =   CharField(null=True, unique=True, help_text='Ваша почта', verbose_name='Email')                  #под это надо написать валидатор
-    
-    # class Meta:
-        # database = DATA_BASE_FROM_SETTINGS_CONFIGS
+
+    class Meta:
+        database = pg_db
 
     def validate_user_group_number(value):
         pattern = r'^\d{4}-\d{6}[A-Z]$'
         if not re.match(pattern, value):
             raise ValueError('Неверный формат номера группы')
-        
+
     def validate_user_phone(self, num):
         clear_phone = re.sub(r'\D', '', num)
         result = re.match(r'^[78]?\d{10}$', clear_phone)
@@ -57,3 +58,4 @@ class User(Model):
     def hash_password(self, password):
         # Напишите свою логику хэширования пароля здесь
         pass
+
