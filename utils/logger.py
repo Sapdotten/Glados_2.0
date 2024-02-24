@@ -1,6 +1,6 @@
 import logging
 import sys
-from utils.config_manager import Logger
+from utils.config_manager import LoggerConfigs
 
 
 def start():
@@ -8,9 +8,9 @@ def start():
     # формат вывода логов
     log_format = '%(asctime)s - %(levelname)s - %(message)s - %(args)s'
 
-    is_console = Logger.is_console()
+    is_console = LoggerConfigs.is_console()
     if is_console == 0:
-        file_handler = logging.FileHandler(Logger.file())
+        file_handler = logging.FileHandler(LoggerConfigs.file())
         file_handler.setLevel(logging.INFO)
         stream_handler = logging.StreamHandler(sys.stdout)
         stream_handler.setLevel(logging.ERROR)
@@ -24,6 +24,6 @@ def start():
 
     logging.basicConfig(
         handlers=handlers,
-        level=Logger.level(),
+        level=LoggerConfigs.level(),
         format=log_format
     )
