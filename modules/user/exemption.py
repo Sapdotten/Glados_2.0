@@ -4,7 +4,8 @@ from utils.config_manager import DocumentsConfigs
 
 
 class Documents:
-    doc: Document
+    exemption_doc: Document
+    thanks_doc: Document
     _sample_dir: str
     _doc_style = 'Normal'
     _font_style = 'Times New Roman'
@@ -17,10 +18,7 @@ class Documents:
         self.director_name = 'director name'
         self.fios = []
 
-    def _set_style(self):
-        style = self.doc.styles[self._doc_style]
-        style.font.name = self._font_style
-        style.font.size = Pt(self._font_size)
+
 
     def set_data(self, date: str):
         self.date = date
@@ -41,18 +39,18 @@ class Documents:
 
     def _add_exemption_content(self):
         # добавление института
-        self.doc.paragraphs[1].add_run(self.institut_name)
+        self.exemption_doc.paragraphs[1].add_run(self.institut_name)
 
         # добавление фио директора
-        self.doc.paragraphs[2].add_run(self.director_name)
+        self.exemption_doc.paragraphs[2].add_run(self.director_name)
         # добавление названия мероприятия
-        for i in self.doc.paragraphs:
+        for i in self.exemption_doc.paragraphs:
             i.text = i.text.replace("event", self.event_name)
         # добавление даты мероприятия
-        for j in self.doc.paragraphs:
+        for j in self.exemption_doc.paragraphs:
             j.text = j.text.replace("date", self.date)
         # Заполнение таблицы
-        fio = self.doc.tables[0]
+        fio = self.exemption_doc.tables[0]
         for student_fio, group in self.fios:
             num_rows = len(fio.rows)
             cells = fio.add_row().cells
@@ -61,11 +59,33 @@ class Documents:
             cells[2].text = group  # Группа
 
     def make_exemption(self):
-        self.doc = Document(DocumentsConfigs.sample_exemption())
-        self._set_style()
+        self.exemption_doc = Document(DocumentsConfigs.sample_exemption())
+        style = self.exemption_doc.styles[self._doc_style]
+        style.font.name = self._font_style
+        style.font.size = Pt(self._font_size)
         self._add_exemption_content()
-        self.doc.save(
+        self.exemption_doc.save(
             f"Освобождение {self.event_name} {self.date}.docx")
+
+    def _add_gatitude_content(self):
+        run = self.thanks_doc.paragraphs[3].add_run(self.institut_name)
+        run.bold = True
+        fio = self.thanks_doc.tables[2]
+
+        for student_fio, group in self.fios:
+            num_rows = len(self.fios)
+            cells = fio.add_row().cells
+            cells[0].text = str(num_rows) + '.'  # порядковый номер
+            cells[1].text = student_fio  # фио студента
+            cells[2].text = group  # группа студента
+
+    def make_thanks(self):
+        self.thanks_doc = Document(DocumentsConfigs.sample_thanks())
+        style = self.thanks_doc.styles[self._doc_style]
+        style.font.name = self._font_style
+        style.font.size = Pt(self._font_size)
+        self._add_gatitude_content()
+        self.thanks_doc.save(f"Благодарность  {self.event_name} {self.date}.docx")
 
 
 # def exemption():
@@ -118,4 +138,4 @@ new_doc.set_event_name('Создание чертового автокомпил
 new_doc.set_data('24.02.2024')
 new_doc.set_institute(6)
 new_doc.add_fio(['Создатели гладос', 'крови на рукаве'])
-new_doc.make_exemption()
+new_doc.make_thanks()

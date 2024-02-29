@@ -73,7 +73,6 @@ class DocumentsConfigs(_Configs):
 
 def start():
     _Configs._init_configs()
-
 start()
 
 
