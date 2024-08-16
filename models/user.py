@@ -26,20 +26,17 @@
 import re
 
 from peewee import *
-<<<<<<< Updated upstream
+
+from models.base_model import BaseModel
+
+
 pg_db = PostgresqlDatabase('qglpmgcg', user='qglpmgcg', password='bsKsGrHGGRpqr4fjKbBBVXoRDj-_J6ks',
                            host='satao.db.elephantsql.com', port=5432)
-class User(Model):
-=======
-
-from database_settings import SQL_DB
 
 
-
-
-class UserModel(Model):
+class UserModel(BaseModel):
     id                  =   PrimaryKeyField(unique=True)
->>>>>>> Stashed changes
+
     user_login          =   CharField(max_length=64,  unique=True, verbose_name='Имя пользователя')
     user_password       =   CharField(max_length=128, unique=True, verbose_name='Пароль пользователя')  #надо написать хэш функцию
     user_Last_name      =   CharField(max_length=32, help_text='Фамилия', verbose_name='Фамилия')
@@ -50,21 +47,11 @@ class UserModel(Model):
     user_vk             =   CharField(null=True, unique=True, help_text='Ваш профиль вконтакте', verbose_name='VK')
     user_telegram       =   CharField(null=True, unique=True, help_text='Ваш профиль телеграм', verbose_name='Telegram')
     user_email          =   CharField(null=True, unique=True, help_text='Ваша почта', verbose_name='Email')                  #под это надо написать валидатор
-<<<<<<< Updated upstream
 
     class Meta:
-        database = pg_db
-=======
-    user_is_active      =   BooleanField(default=True, help_text='отображение в таблице', choices=[(True, 'Active'), (False, 'Inactive')])
-    
-
-
-    class Meta:
-        database = SQL_DB
         order_by = id
         db_table = 'Users'
 
->>>>>>> Stashed changes
 
     def validate_user_group_number(value):
         pattern = r'^\d{4}-\d{6}[A-Z]$'

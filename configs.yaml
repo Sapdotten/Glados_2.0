@@ -1,6 +1,6 @@
 logging:
   file: files/logs.log
-  console: 0
+  console: 1
   level: INFO
 database:
   user: qglpmgcg

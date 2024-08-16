@@ -24,9 +24,9 @@ import re, datetime
 
 from peewee import *
 
-from database_settings import SQL_DB
+from models.base_model import BaseModel
+from models.user import User
 
-from . import User
 
 
 def set_file_name(id):
@@ -36,7 +36,7 @@ def set_file_name(id):
 def set_file_path(file_name):
     return datetime.datetime.now().strftime(f'media_storage/%Y/%m/%d/{file_name}.docx')
 
-class BaseFileModel(Model):
+class BaseFileModel(BaseModel):
     id                  = PrimaryKeyField(unique=True)
     file_name           = CharField(unique=True)  
     file_author         = ForeignKeyField(User, backref='BaseFileModels')
@@ -53,7 +53,6 @@ class BaseFileModel(Model):
     
 
     class Meta:
-        database = SQL_DB
         order_by = id
         db_table = 'Files'
 
@@ -67,18 +66,5 @@ class Message(BaseFileModel):
     
 
     class Meta:
-        database = SQL_DB
         order_by = id
         db_table = 'Documents_messages'
-
-file = Message.create(
-    file_author=1,
-    message_type='благодарность',
-    message_title='За хакатон в Роботика',
-    message_body='За хакатон в Роботика'
-)
-
-id = file.id
-file.file_name = set_file_name(id)
-file.file_path = set_file_path(file.file_name)
-file.save()

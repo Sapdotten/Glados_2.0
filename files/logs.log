@@ -1,0 +1,32 @@
+[2024-08-16 17:36:46] [32mINFO:[0m This is an info message[0m
+[2024-08-16 17:36:46] [33mWARNING:[0m This is a warning message[0m
+[2024-08-16 17:36:46] [31mERROR:[0m This is an error message[0m
+[2024-08-16 17:36:46] [1;31mCRITICAL:[0m This is a critical message[0m
+[2024-08-16 17:38:04] [32mINFO:[0m 
+Exiting the program.[0m
+[2024-08-16 17:38:04] [32mINFO:[0m This is an info message[0m
+[2024-08-16 17:38:04] [33mWARNING:[0m This is a warning message[0m
+[2024-08-16 17:38:04] [31mERROR:[0m This is an error message[0m
+[2024-08-16 17:38:04] [1;31mCRITICAL:[0m This is a critical message[0m
+[2024-08-16 17:38:32] [32mINFO:[0m 
+Exiting the program.[0m
+[2024-08-16 17:38:49] [32mINFO:[0m This is an info message[0m
+[2024-08-16 17:38:49] [33mWARNING:[0m This is a warning message[0m
+[2024-08-16 17:38:49] [31mERROR:[0m This is an error message[0m
+[2024-08-16 17:38:49] [1;31mCRITICAL:[0m This is a critical message[0m
+[2024-08-16 17:42:38] [32mINFO:[0m 
+Exiting the program.[0m
+[2024-08-16 17:42:56] [32mINFO:[0m 
+Exiting the program.[0m
+[2024-08-16 17:42:57] [32mINFO:[0m This is an info message[0m
+[2024-08-16 17:42:57] [33mWARNING:[0m This is a warning message[0m
+[2024-08-16 17:42:57] [31mERROR:[0m This is an error message[0m
+[2024-08-16 17:42:57] [1;31mCRITICAL:[0m This is a critical message[0m
+[2024-08-16 17:44:53] [32mINFO:[0m 
+Exiting the program.[0m
+[2024-08-16 17:44:54] [32mINFO:[0m This is an info message[0m
+[2024-08-16 17:44:54] [33mWARNING:[0m This is a warning message[0m
+[2024-08-16 17:44:54] [31mERROR:[0m This is an error message[0m
+[2024-08-16 17:44:54] [1;31mCRITICAL:[0m This is a critical message[0m
+[2024-08-16 17:45:47] [32mINFO:[0m 
+Exiting the program.[0m
