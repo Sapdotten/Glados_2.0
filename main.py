@@ -1,7 +1,7 @@
 import logging
 import sys
 import signal
-from management.utils import (
+from core.management.utils import (
     execute_from_command_line,
     execute_from_input_stream
 )
