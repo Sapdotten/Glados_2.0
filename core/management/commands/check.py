@@ -12,3 +12,4 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         # перехватывать ошибки и состояния тут
         ...
+    

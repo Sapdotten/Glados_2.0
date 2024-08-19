@@ -13,7 +13,7 @@ class Command(BaseCommand):
             host, port = "0.0.0.0", 8000
             logging.info('Meow ^_^')
             logging.info(f'run_web_server host: http://{host}:{port}')
-            uvicorn.run("api.asgi:app", host=host, port=port, reload=True)  # Передача приложения как строки импорта
+            uvicorn.run("config.asgi:app", host=host, port=port, reload=True)  # Передача приложения как строки импорта
         except Exception as e:
             logging.error(f"An error occurred: {e}")
         
