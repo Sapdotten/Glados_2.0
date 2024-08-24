@@ -1,16 +1,10 @@
-import re
 import enum
 
-from sqlalchemy import Column, Integer, String, Boolean, Enum
-from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy import Column, Integer, String, Boolean, Enum, ForeignKey
+from sqlalchemy.orm import relationship
 
+from config.settings import Base
 
-DATABASE_URL = "postgresql+asyncpg://qglpmgcg:bsKsGrHGGRpqr4fjKbBBVXoRDj-_J6ks@satao.db.elephantsql.com:5432/qglpmgcg"
-engine = create_async_engine(DATABASE_URL, echo=True)
-AsyncSessionLocal = sessionmaker(engine, class_=AsyncSession)
-Base = declarative_base()
 
 class UserRole(enum.Enum):
     USER = 'user'
@@ -23,7 +17,7 @@ class UserModel(Base):
     id = Column(Integer, primary_key=True, unique=True, autoincrement=True)
     
     user_login = Column(String(64), unique=True, nullable=False, comment='Имя пользователя')
-    user_password = Column(String(128), unique=True, nullable=False, comment='Пароль пользователя')
+    user_hashed_password = Column(String, nullable=False)    
     
     is_active = Column(Boolean, default=True, nullable=False, comment='Активен')
     user_role = Column(Enum(UserRole), default=UserRole.USER, nullable=False, comment='Роль пользователя')
@@ -36,7 +30,40 @@ class UserModel(Base):
     
     user_phone = Column(String, unique=True, nullable=False, comment='Телефон')
     
-    user_vk = Column(String, unique=True, nullable=True, comment='VK')
-    user_telegram = Column(String, unique=True, nullable=True, comment='Telegram')
-    user_email = Column(String, unique=True, nullable=True, comment='Email')
+    phones = relationship("PhoneModel", back_populates="user")
+    emails = relationship("EmailModel", back_populates="user")
+    social_accounts = relationship("SocialAccountModel", back_populates="user")
     
+class PhoneModel(Base):
+    __tablename__ = 'Телефоны_клубовцев'
+
+    id = Column(Integer, primary_key=True, unique=True, autoincrement=True)
+    user_id = Column(Integer, ForeignKey('Users.id'))
+    phone = Column(String, nullable=False, comment='Телефон')
+    
+    user = relationship("UserModel", back_populates="phones")
+
+class EmailModel(Base):
+    __tablename__ = 'Почты_клубовцев'
+
+    id = Column(Integer, primary_key=True, unique=True, autoincrement=True)
+    user_id = Column(Integer, ForeignKey('Users.id'))
+    email = Column(String, nullable=False, comment='Email')
+    
+    user = relationship("UserModel", back_populates="emails")
+
+
+class UserRole(enum.Enum):
+    TELEGRAM = 'telegram'
+    VK = 'vk'
+    DISCORD = 'discord'
+
+class SocialAccountModel(Base):
+    __tablename__ = 'Соц_сети_клубовцев'
+
+    id = Column(Integer, primary_key=True, unique=True, autoincrement=True)
+    user_id = Column(Integer, ForeignKey('Users.id'))
+    account_type = Column(String, nullable=False, comment='Тип аккаунта')
+    account_id = Column(String, nullable=False, comment='Идентификатор аккаунта')
+    
+    user = relationship("UserModel", back_populates="social_accounts")

@@ -71,3 +71,36 @@ class UserModel(BaseModel):
         # Напишите свою логику хэширования пароля здесь
         pass
 
+#надстройка чтобы распрасить в\из json
+# class starletteCodpiecAPIView(CodpiecAPIView):
+#     # async def list(self, request: Request):
+#     #     result = await super().list()
+#     #     return JSONResponse([item.dict() for item in result])
+
+#     # async def retrieve(self, request: Request):
+#     #     codpiece_id = int(request.path_params['codpiece_id'])
+#     #     result = await super().retrieve(codpiece_id)
+#     #     return JSONResponse(result.dict())
+
+#     # async def create(self, request: Request):
+#     #     data = await request.json()
+#     #     result = await super().create(data)
+#     #     return JSONResponse(result.dict())
+
+#     # async def update(self, request: Request):
+#     #     codpiece_id = int(request.path_params['codpiece_id'])
+#     #     data = await request.json()
+#     #     result = await super().update(codpiece_id, data)
+#     #     return JSONResponse(result.dict())
+
+#     # async def partial_update(self, request: Request):
+#     #     codpiece_id = int(request.path_params['codpiece_id'])
+#     #     data = await request.json()
+#     #     result = await super().partial_update(codpiece_id, data)
+#     #     return JSONResponse(result.dict())
+
+#     # async def destroy(self, request: Request):
+#     #     codpiece_id = int(request.path_params['codpiece_id'])
+#     #     result = await super().destroy(codpiece_id)
+#     #     return JSONResponse(result)
+    
